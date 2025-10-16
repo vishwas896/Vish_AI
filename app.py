@@ -18,17 +18,14 @@ except ImportError:
     SUPABASE_AVAILABLE = False
     print("⚠️ Supabase not available - running in demo mode")
 
-# AI model imports (lazy loading for better performance)
-pipeline = None
+# AI model imports
 torch = None
 
 try:
-    pipeline = getattr(importlib.import_module("transformers"), "pipeline", None)
     torch = importlib.import_module("torch")
-    AI_AVAILABLE = pipeline is not None
+    AI_AVAILABLE = True
 except ImportError:
     AI_AVAILABLE = False
-    pipeline = None
     torch = None
 
 if not AI_AVAILABLE:
@@ -63,19 +60,24 @@ def initialize_models():
     
     try:
         from transformers import AutoModelForCausalLM, AutoTokenizer
+        import traceback
         
-        # Load Phi-3 Mini - Unified model for all tasks (~7.4GB with 4-bit quantization)
+        # Load Phi-3 Mini - Unified model for all tasks (~7.4GB)
         print("📥 Loading Phi-3 Mini unified model...")
         print("   Model: microsoft/Phi-3-mini-4k-instruct")
         print("   Capabilities: Chat, Summarization, Sentiment Analysis")
+        print("   This may take 5-15 minutes on first run (downloading ~7GB)...")
         
         # Load tokenizer
+        print("   Loading tokenizer...")
         phi3_tokenizer = AutoTokenizer.from_pretrained(
             "microsoft/Phi-3-mini-4k-instruct",
             trust_remote_code=True
         )
+        print("   ✅ Tokenizer loaded")
         
-        # Load model with CPU optimization
+        # Load model with CPU optimization for Hugging Face Spaces
+        print("   Loading model (this is the slow part)...")
         phi3_model = AutoModelForCausalLM.from_pretrained(
             "microsoft/Phi-3-mini-4k-instruct",
             device_map="cpu",
@@ -86,9 +88,13 @@ def initialize_models():
         
         print("✅ Phi-3 Mini model loaded successfully!")
         print("🎉 Unified model ready for all tasks!")
+        print(f"   Model parameters: {phi3_model.num_parameters():,}")
         return True
     except Exception as e:
         print(f"❌ Error loading Phi-3 model: {e}")
+        print("Detailed error:")
+        import traceback
+        traceback.print_exc()
         return False
 
 def verify_user_token(token: str) -> dict:

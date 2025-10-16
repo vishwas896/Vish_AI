@@ -1,125 +1,236 @@
-# 🚀 Vish AI - Quick Start with Phi-3
+# 🚀 VISH AI - Quick Start Guide
 
-## What Changed?
-**Before**: 3 separate models (DistilGPT2, DistilBART, DistilBERT)  
-**Now**: 1 unified model (Microsoft Phi-3 Mini 4K Instruct)
+## Installation & Setup (5 minutes)
 
----
+### Step 1: Install Dependencies
 
-## Quick Commands
-
-### Test the Setup
-```bash
-python test_phi3_model.py
-```
-
-### Run Locally
 ```bash
 pip install -r requirements.txt
-python app.py
-# Open: http://localhost:7860
 ```
 
-### Fine-tune (Optional)
+**What gets installed:**
+- Gradio (UI)
+- FastAPI (API)
+- Transformers (Phi-3)
+- PEFT (LoRA training)
+- Datasets (data handling)
+
+### Step 2: Start the Server
+
 ```bash
-# 1. Create training_data.jsonl with your examples
-# 2. Run:
-python fine_tune_phi3.py
+python start.py
 ```
 
----
-
-## File Guide
-
-| File | Purpose |
-|------|---------|
-| `app.py` | Main application (UPDATED) |
-| `requirements.txt` | Dependencies (UPDATED) |
-| `test_phi3_model.py` | Test installation ⭐ START HERE |
-| `fine_tune_phi3.py` | Customize the model |
-| `PHI3_MODEL_GUIDE.md` | Complete documentation |
-| `MODEL_UPGRADE_SUMMARY.md` | User-friendly overview |
-| `CHANGES_SUMMARY.md` | Detailed change log |
-
----
-
-## Key Benefits
-
-✅ **Better Quality** - 3.8B parameters vs 82M-300M  
-✅ **Unified** - 1 model instead of 3  
-✅ **Customizable** - Easy to fine-tune  
-✅ **Production Ready** - Microsoft supported  
-
----
-
-## Performance
-
-| Task | Speed (CPU) | Speed (GPU) |
-|------|-------------|-------------|
-| Chat | 1-3s | 0.3-1s |
-| Summarize | 2-4s | 0.5-1.5s |
-| Sentiment | 0.5-2s | 0.2-0.5s |
-
----
-
-## Memory Options
-
-| Mode | Size | Command |
-|------|------|---------|
-| Full (FP32) | ~15GB | Default in app.py |
-| Half (FP16) | ~7.5GB | Use GPU config |
-| 4-bit Quant | ~2.5GB | See PHI3_MODEL_GUIDE.md |
-
----
-
-## Troubleshooting
-
-**Problem**: Out of memory  
-**Solution**: Enable 4-bit quantization (see guide)
-
-**Problem**: Slow responses  
-**Solution**: Use GPU or reduce max_new_tokens
-
-**Problem**: Model won't load  
-**Solution**: Check internet, clear cache, run test script
-
----
-
-## Fine-tuning Quick Start
-
-1. **Create data** (training_data.jsonl):
-```json
-{"text": "User: Hello\nAssistant: Hi! How can I help?"}
-```
-
-2. **Run training**:
+**Or manually:**
 ```bash
-python fine_tune_phi3.py
+python -m app.main
 ```
 
-3. **Update app.py**:
-```python
-model_path = "./phi3-vish-ai-finetuned"
+### Step 3: Open Browser
+
+Visit: **http://localhost:7860**
+
+---
+
+## 🎯 First Steps
+
+### 1. Try the Chat
+- Go to "💬 VISH Assistant" tab
+- Type: "Tell me about artificial intelligence"
+- Click Send
+- Notice the interaction ID in the response
+
+### 2. Submit Feedback
+- Copy the interaction ID (e.g., `a1b2c3d4`)
+- Go to "⭐ Feedback" tab
+- Paste the ID
+- Rate 1-5 stars
+- Click "Submit Feedback"
+
+### 3. Check Statistics
+- Go to "📊 Statistics" tab
+- Click "🔄 Refresh Stats"
+- See your interactions and ratings
+
+### 4. Train the Model (After 10+ interactions)
+- Go to "🎓 Training (Admin)" tab
+- Set minimum samples: 10
+- Set epochs: 3
+- Enter admin key: `vish-admin-2024` (default)
+- Click "🚀 Start Training"
+- Wait 10-30 minutes for training
+
+---
+
+## 📝 Category Examples
+
+### General Assistant
+```
+Category: assistant
+Question: "What is machine learning?"
+```
+
+### Resume Builder
+```
+Category: resume
+Question: "Help me write a software engineer resume"
+```
+
+### Research
+```
+Category: research
+Question: "Explain quantum computing"
+```
+
+### Business
+```
+Category: business
+Question: "How do I create a business plan?"
 ```
 
 ---
 
-## Resources
+## 🔐 Admin Key
 
-📖 **Full Guide**: PHI3_MODEL_GUIDE.md  
-📋 **Changes**: CHANGES_SUMMARY.md  
-🌐 **Model**: [HuggingFace](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct)
+Default admin key: `vish-admin-2024`
+
+**Change it:**
+```bash
+export VISH_ADMIN_KEY="your-secret-key"
+```
+
+Or in `.env` file:
+```
+VISH_ADMIN_KEY=your-secret-key
+```
 
 ---
 
-## Next Steps
+## 📊 Understanding the System
 
-1. ⏳ Run: `python test_phi3_model.py`
-2. ⏳ Test all features in UI
-3. ⏳ Deploy to HuggingFace Spaces
-4. ⏳ (Optional) Fine-tune for your domain
+### Data Flow
+1. **User chats** → Saved to `data/vish_dataset.jsonl`
+2. **User rates** → Saved to `data/feedback.jsonl`
+3. **Training runs** → Creates `models/vish-ai-mini/latest/`
+4. **Model reloads** → Uses improved version automatically
+
+### File Structure
+```
+data/
+  ├── vish_dataset.jsonl     # All interactions
+  ├── feedback.jsonl         # User ratings
+  └── research_data.jsonl    # Research data
+
+models/
+  └── vish-ai-mini/
+      ├── latest/            # LoRA adapters
+      └── metadata.json      # Version info
+```
 
 ---
 
-**Status**: ✅ Ready to Test  
-**Version**: Phi-3 Unified (Oct 2025)
+## 🎓 Training Process
+
+### When to Train
+- After collecting 10+ interactions
+- After significant feedback
+- Weekly/monthly for continuous improvement
+
+### Training Time
+- **CPU**: 10-30 minutes
+- **GPU**: 2-5 minutes
+
+### What Gets Trained
+- High-quality interactions (rating ≥ 3)
+- Deduplicated data
+- LoRA adapters only (efficient!)
+
+### Model Versions
+Each training creates a version:
+- `v20241016_143022`
+- `v20241017_095234`
+- Latest version is used automatically
+
+---
+
+## 🚀 Deployment
+
+### Hugging Face Spaces
+
+1. Create Space: https://huggingface.co/new-space
+2. Upload files:
+   - `app/` folder
+   - `requirements.txt`
+   - `Dockerfile`
+   - `README.md`
+3. Set hardware: CPU Basic (free) or T4 GPU
+4. Wait for build (~15-20 minutes first time)
+5. Done! Your AI is live
+
+### Docker
+
+```bash
+# Build
+docker build -t vish-ai .
+
+# Run
+docker run -p 7860:7860 \
+  -v $(pwd)/data:/app/data \
+  -v $(pwd)/models:/app/models \
+  -e VISH_ADMIN_KEY=your-key \
+  vish-ai
+```
+
+---
+
+## ⚡ Quick Tips
+
+1. **Start with general questions** to build dataset
+2. **Rate honestly** - only good data improves the model
+3. **Train regularly** - weekly is good
+4. **Check stats** - monitor improvement
+5. **Backup data** - copy `/data` and `/models` regularly
+
+---
+
+## 🐛 Common Issues
+
+### "Model not loaded"
+- Wait for initial download (~7GB, 10-15 min)
+- Check logs for errors
+- Verify internet connection
+
+### "Insufficient data for training"
+- Need at least 10 interactions
+- Check: `curl http://localhost:7860/api/stats`
+
+### "Out of memory"
+- Use quantization (edit `model_handler.py`)
+- Reduce batch size in `retrain.py`
+- Upgrade to GPU
+
+---
+
+## 📚 Next Steps
+
+1. **Explore API**: Visit `http://localhost:7860/docs`
+2. **Read Full README**: See `README_SELF_TRAINING.md`
+3. **Customize**: Edit system prompts in `gradio_ui.py`
+4. **Integrate**: Use API endpoints in your apps
+
+---
+
+## 🎉 Success!
+
+You now have a self-improving AI assistant that:
+- ✅ Learns from your conversations
+- ✅ Improves with your feedback
+- ✅ Trains automatically with LoRA
+- ✅ Tracks performance over time
+- ✅ Works on free-tier hardware
+
+**Happy chatting! 🤖**
+
+---
+
+Built with ❤️ by Vishwas | Questions? Open an issue!

@@ -1,8 +1,11 @@
-# Vish AI - Production Requirements for Hugging Face Spaces
-# Optimized for Python 3.10/3.11 with Phi-3 Mini unified model
+# VISH AI - Self-Training System Requirements
+# Optimized for Hugging Face Spaces with Phi-3 Mini
 
 # Core Framework
 gradio>=4.0.0,<5.0.0
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
 
 # AI/ML Libraries for Phi-3
 transformers>=4.36.0,<5.0.0
@@ -10,12 +13,22 @@ torch>=2.0.0; python_version < "3.13"
 sentencepiece>=0.1.99
 einops>=0.7.0
 
-# Acceleration (recommended for Phi-3)
+# Fine-tuning & Training
+peft>=0.7.0
 accelerate>=0.20.0; python_version < "3.13"
+datasets>=2.14.0
+bitsandbytes>=0.41.0; python_version < "3.13"
 
-# Backend & Database
+# Data Management
+pandas>=2.0.0
+tinydb>=4.8.0
+
+# Backend & Database (optional)
 supabase>=2.0.0,<3.0.0
 python-dotenv>=1.0.0
 
 # Additional optimizations
 safetensors>=0.3.0; python_version < "3.13"
+
+# API & Web
+httpx>=0.25.0

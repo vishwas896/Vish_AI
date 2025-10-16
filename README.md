@@ -2,52 +2,55 @@
 
 [![Hugging Face Space](https://img.shields.io/badge/🤗%20Hugging%20Face-Space-blue)](https://huggingface.co/spaces/Vishwas896/Vish-AI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Model: Phi-3](https://img.shields.io/badge/Model-Phi--3-green)](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct)
 
-> Lightweight, fast, and accurate multimodal AI assistant optimized for Hugging Face Free Tier
+> Powerful AI assistant powered by Microsoft Phi-3 Mini (3.8B parameters) - Optimized for Hugging Face Spaces
 
 ## 🚀 Features
 
 ### Core Capabilities
 
-- **💬 Chat Assistant**: Natural conversation using DistilGPT2 (82MB)
-- **📝 Text Summarization**: Condense long articles with DistilBART (300MB)
-- **😊 Sentiment Analysis**: Detect emotions with DistilBERT (255MB)
-- **🔐 Supabase Authentication**: Secure user management
+- **💬 Chat Assistant**: Intelligent conversation with 4K context window (Phi-3)
+- **📝 Text Summarization**: Advanced text condensing with AI understanding (Phi-3)
+- **😊 Sentiment Analysis**: Accurate emotion detection (Phi-3)
+- **🔐 Supabase Authentication**: Optional secure user management
 - **📊 Usage Logging**: Track interactions in Supabase database
 
 ### Performance Specs
 
-- **Total Model Size**: ~650MB (optimized for free tier)
-- **Response Time**: 0.5-3 seconds (CPU optimized)
-- **Memory Usage**: <2GB RAM
-- **CPU Optimized**: Runs efficiently without GPU
+- **Model**: Microsoft Phi-3 Mini 4K Instruct (3.8B parameters)
+- **Model Size**: ~7.4GB (unified model for all tasks)
+- **Response Time**: 2-5 seconds on CPU (faster on GPU)
+- **Memory Usage**: ~8GB RAM recommended
+- **CPU Optimized**: Works on free tier, better on GPU
 
 ## 🎯 Use Cases
 
-1. **Customer Support**: Quick response chatbot
-2. **Content Analysis**: Summarize articles, detect sentiment
-3. **Educational Tool**: Learning assistant
-4. **VIJ Project Integration**: AI backend for your v0.dev project
+1. **Advanced Chatbot**: High-quality conversational AI
+2. **Content Analysis**: Professional-grade summarization and sentiment detection
+3. **Educational Tool**: Intelligent learning assistant
+4. **Research Assistant**: Context-aware information processing
+5. **VIJ Project Integration**: Powerful AI backend
 
-## 📦 Installation
+## 📦 Quick Deploy to Hugging Face Spaces
 
-### For Hugging Face Spaces
+### Method 1: Direct Upload
 
 1. **Create a new Space** on Hugging Face
    - Go to: <https://huggingface.co/new-space>
    - Select: **Gradio** SDK
-   - Hardware: **CPU basic** (free tier)
+   - Python: **3.10 or 3.11** (recommended)
+   - Hardware: **CPU basic** (free, slower) or **T4 GPU** (faster)
 
-2. **Upload files**:
+2. **Upload these files**:
+   - `app.py` (main application)
+   - `requirements.txt` (dependencies)
+   - `README.md` (this file)
 
-   ```bash
-   git clone https://huggingface.co/spaces/Vishwas896/Vish-AI
-   cd Vish-AI
-   # Copy app.py and requirements.txt to the space
-   ```
-
-3. **Set Environment Secrets**:
-   - Go to Space Settings → Repository secrets
+3. **Wait for build** (15-20 minutes on first run):
+   - Installing dependencies (~3 minutes)
+   - Downloading Phi-3 model (~10-15 minutes, 7GB)
+   - Building app (~2 minutes)
    - Add these secrets:
 
      ```text
